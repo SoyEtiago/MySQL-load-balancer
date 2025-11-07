@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# 00 — Prepare sbtest dataset via ProxySQL (RW)
+set -euo pipefail
+source scripts/common.sh
+
+log "Creating DB and minimal privileges"
+mysql_cli proxysql "$PROXY_SQL_PORT" "$MYSQL_USER_RW" "$MYSQL_PASS_RW" -e "CREATE DATABASE IF NOT EXISTS $DB; GRANT ALL ON $DB.* TO 'root'@'%'; GRANT SELECT ON $DB.* TO 'replica'@'%'; FLUSH PRIVILEGES;"
+
+ensure_sysbench
+log "Populating sbtest: tables=$TABLES size=$TABLE_SIZE"
+docker exec -i "$CLIENT_CONT" bash -lc "sysbench oltp_read_write \
+  --db-driver=mysql --mysql-host=proxysql --mysql-port=$PROXY_SQL_PORT \
+  --mysql-user=$MYSQL_USER_RW --mysql-password=$MYSQL_PASS_RW --mysql-db=$DB \
+  --tables=$TABLES --table-size=$TABLE_SIZE prepare" | tee "$LOG_DIR/00_prepare.log"
