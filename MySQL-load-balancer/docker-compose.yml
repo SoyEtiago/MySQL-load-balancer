@@ -1,0 +1,100 @@
+services:
+  mysql-master:
+    image: mysql:8.0
+    container_name: mysql-master
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: demo
+      MYSQL_USER: replica
+      MYSQL_PASSWORD: replicapass
+    command: >
+      --server-id=1
+      --log-bin=mysql-bin
+      --binlog-format=ROW
+      --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - master_data:/var/lib/mysql
+      - ./init-master.sql:/docker-entrypoint-initdb.d/init-master.sql
+    networks:
+      - proxysql-net
+
+  mysql-slave1:
+    image: mysql:8.0
+    container_name: mysql-slave1
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+    command: >
+      --server-id=2
+      --relay-log=relay-bin
+      --read-only=1
+      --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3308:3306"
+    depends_on:
+      - mysql-master
+    volumes:
+      - slave1_data:/var/lib/mysql
+      - ./init-slave.sql:/docker-entrypoint-initdb.d/init-slave.sql
+    networks:
+      - proxysql-net
+
+  mysql-slave2:
+    image: mysql:8.0
+    container_name: mysql-slave2
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+    command: >
+      --server-id=3
+      --relay-log=relay-bin
+      --read-only=1
+      --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3309:3306"
+    depends_on:
+      - mysql-master
+    volumes:
+      - slave2_data:/var/lib/mysql
+      - ./init-slave.sql:/docker-entrypoint-initdb.d/init-slave.sql
+    networks:
+      - proxysql-net
+
+  proxysql:
+    image: proxysql/proxysql:latest
+    container_name: proxysql
+    restart: always
+    ports:
+      - "6032:6032"   # Admin interface
+      - "6033:6033"   # Client access
+    volumes:
+      - ./proxysql.cnf:/etc/proxysql.cnf
+    depends_on:
+      - mysql-master
+      - mysql-slave1
+      - mysql-slave2
+    networks:
+      - proxysql-net
+
+  mysql-client:
+    image: ubuntu:22.04
+    container_name: mysql-client
+    depends_on:
+      - proxysql
+    networks:
+      - proxysql-net
+    tty: true
+    entrypoint: ["/bin/bash"]
+    command: ["-c", "apt update && apt install -y mysql-client sysbench && bash"]
+
+networks:
+  proxysql-net:
+    driver: bridge
+
+volumes:
+  master_data:
+  slave1_data:
+  slave2_data:
