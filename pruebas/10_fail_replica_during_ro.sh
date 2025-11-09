@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 10 — S5.1 Fail a replica during RO test
 set -euo pipefail
-source scripts/common.sh
+source ../scripts/common.sh
 TAG="S5_1_proxy_ro_fail"
 (
   run_sysbench proxysql "$PROXY_SQL_PORT" oltp_read_only "$MYSQL_USER_RO" "$MYSQL_PASS_RO" "$TAG"

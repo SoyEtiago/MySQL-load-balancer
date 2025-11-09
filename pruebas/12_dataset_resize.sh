@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 12 — S4 Dataset resize and re-prepare
 set -euo pipefail
-source scripts/common.sh
+source ../scripts/common.sh
 NEW_TABLES=${1:-16}
 NEW_TABLE_SIZE=${2:-500000}
 log "Cleaning current dataset…"

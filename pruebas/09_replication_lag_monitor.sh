@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 09 — Replication lag monitor (run parallel)
 set -euo pipefail
-source scripts/common.sh
+source ../scripts/common.sh
 interval=${1:-5}
 out="$LOG_DIR/09_replication_lag_$(date +%F_%H-%M-%S).log"
 log "Monitoring lag every ${interval}s → $out (CTRL+C to stop)"

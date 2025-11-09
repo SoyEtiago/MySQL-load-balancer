@@ -9,6 +9,6 @@ Initializing random number generator from current time
 Initializing worker threads...
 
 FATAL: mysql_stmt_prepare() failed
-FATAL: MySQL error: 1044 "Access denied for user 'replica'@'%' to database 'sbtest'"
+FATAL: MySQL error: 1146 "Table 'sbtest.sbtest2' doesn't exist"
 FATAL: `thread_init' function failed: /usr/share/sysbench/oltp_common.lua:284: SQL API error
 FATAL: Thread initialization failed!
