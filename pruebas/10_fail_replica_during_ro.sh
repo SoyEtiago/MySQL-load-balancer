@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # 10 — S5.1 Fail a replica during RO test
-set -euo pipefail
+set -eu
+if (set -o pipefail) 2>/dev/null; then set -o pipefail; fi
 source ../scripts/common.sh
 TAG="S5_1_proxy_ro_fail"
 (

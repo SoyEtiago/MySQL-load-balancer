@@ -1,4 +1,0 @@
-sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
-
-Creating table 'sbtest1'...
-Inserting 1000000 records into 'sbtest1'

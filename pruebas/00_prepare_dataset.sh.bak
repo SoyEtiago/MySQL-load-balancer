@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-set -eu
-if (set -o pipefail) 2>/dev/null; then set -o pipefail; fi
+# 00 — Prepare sbtest dataset via ProxySQL (RW)
 set -eu
 if (set -o pipefail) 2>/dev/null; then set -o pipefail; fi
 source ../scripts/common.sh

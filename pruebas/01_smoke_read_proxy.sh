@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # 01 — Smoke read through ProxySQL (RO) and pool status
-set -euo pipefail
+set -eu
+if (set -o pipefail) 2>/dev/null; then set -o pipefail; fi
 source ../scripts/common.sh
 
 log "SELECT via ProxySQL (replica)"

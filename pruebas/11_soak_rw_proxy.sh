@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # 11 — S6.1 Soak test RW via ProxySQL (30–60 min)
-set -euo pipefail
+set -eu
+if (set -o pipefail) 2>/dev/null; then set -o pipefail; fi
 source ../scripts/common.sh
 export TIME=${TIME:-3600}
 export THREADS_LIST=${THREADS_LIST:-"16 32"}

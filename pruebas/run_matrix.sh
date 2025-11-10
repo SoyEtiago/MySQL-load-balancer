@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Run main matrix and save results
-set -euo pipefail
+set -eu
+if (set -o pipefail) 2>/dev/null; then set -o pipefail; fi
 source scripts/common.sh
 ./pruebas/03_sysbench_ro_proxy.sh
 ./pruebas/04_sysbench_rw_proxy.sh
