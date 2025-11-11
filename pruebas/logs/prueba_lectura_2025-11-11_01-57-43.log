@@ -1,0 +1,6 @@
+total_filas
+1
+hostgroup	srv_host	status	ConnUsed	ConnFree
+10	mysql-master	ONLINE	0	2
+20	mysql-slave1	ONLINE	0	2
+20	mysql-slave2	ONLINE	0	1

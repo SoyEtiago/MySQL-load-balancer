@@ -1,0 +1,44 @@
+sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 4
+Report intermediate results every 10 second(s)
+Initializing random number generator from current time
+
+
+Initializing worker threads...
+
+Threads started!
+
+[ 10s ] thds: 4 tps: 101.68 qps: 2040.98 (r/w/o: 1429.18/408.04/203.77) lat (ms,95%): 78.60 err/s: 0.00 reconn/s: 0.00
+[ 20s ] thds: 4 tps: 97.00 qps: 1936.61 (r/w/o: 1355.91/386.70/194.00) lat (ms,95%): 102.97 err/s: 0.00 reconn/s: 0.00
+[ 30s ] thds: 4 tps: 100.89 qps: 2018.59 (r/w/o: 1413.26/403.56/201.78) lat (ms,95%): 114.72 err/s: 0.00 reconn/s: 0.00
+[ 40s ] thds: 4 tps: 103.61 qps: 2069.49 (r/w/o: 1447.83/414.44/207.22) lat (ms,95%): 97.55 err/s: 0.00 reconn/s: 0.00
+[ 50s ] thds: 4 tps: 103.10 qps: 2063.43 (r/w/o: 1444.82/412.41/206.20) lat (ms,95%): 90.78 err/s: 0.00 reconn/s: 0.00
+[ 60s ] thds: 4 tps: 102.70 qps: 2056.11 (r/w/o: 1439.51/411.20/205.40) lat (ms,95%): 101.13 err/s: 0.00 reconn/s: 0.00
+SQL statistics:
+    queries performed:
+        read:                            85316
+        write:                           24376
+        other:                           12188
+        total:                           121880
+    transactions:                        6094   (101.53 per sec.)
+    queries:                             121880 (2030.60 per sec.)
+    ignored errors:                      0      (0.00 per sec.)
+    reconnects:                          0      (0.00 per sec.)
+
+General statistics:
+    total time:                          60.0204s
+    total number of events:              6094
+
+Latency (ms):
+         min:                                   10.09
+         avg:                                   39.39
+         max:                                  225.87
+         95th percentile:                       99.33
+         sum:                               240024.54
+
+Threads fairness:
+    events (avg/stddev):           1523.5000/2.50
+    execution time (avg/stddev):   60.0061/0.00
+

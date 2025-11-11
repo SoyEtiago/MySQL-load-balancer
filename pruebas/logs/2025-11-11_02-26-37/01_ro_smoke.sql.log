@@ -1,0 +1,5 @@
+total
+105
+10	mysql-master	ONLINE	0	2	79091
+20	mysql-slave1	ONLINE	0	2	13421
+20	mysql-slave2	ONLINE	0	1	13511
