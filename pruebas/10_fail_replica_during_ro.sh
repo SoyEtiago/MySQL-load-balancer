@@ -4,13 +4,9 @@ set -eu
 if (set -o pipefail) 2>/dev/null; then set -o pipefail; fi
 source ../scripts/common.sh
 
-# === Config clave para que NO se vaya al master y no aborte la prueba ===
 export RO_ENSURE_RULES=1      # Reaplica reglas: ^SELECT->20; FOR UPDATE->10; BEGIN/COMMIT/SET->20
 export RO_SKIP_TRX=1          # Añade --skip-trx=on en oltp_read_only (evita "pegado")
 export RO_TX_PERSIST=0        # Permite re-ruteo dentro de la sesión RO
-# sysbench 1.0.20 NO soporta --reconnect, así que usamos:
-#  - sin prepared statements  => mejor tolerancia al failover
-#  - ignorar errores          => no aborta toda la prueba por 2013/2006, etc.
 export SYSBENCH_EXTRA="--db-ps-mode=disable --mysql-ignore-errors=all ${SYSBENCH_EXTRA:-}"
 
 # Usa solo un valor de threads (para que run_sysbench no haga varios loops)
@@ -24,7 +20,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-# (Opcional) limpia contadores del pool:
+
 # restart_proxysql
 
 TAG="S5_1_proxy_ro_fail"
