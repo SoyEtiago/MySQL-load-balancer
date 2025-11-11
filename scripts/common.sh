@@ -137,6 +137,6 @@ run_sysbench() {
         --tables=${TABLES} --table-size=${TABLE_SIZE} \
         --threads=${th} --time=${TIME} --report-interval=${RPT} \
         --rand-type=${RAND_TYPE} ${extra} run
-    " | tee \"${RES_DIR}/${tag}_t${th}.log\"
+    " | tee "${RES_DIR}/${tag}_t${th}.log"
   done
 }
