@@ -9,7 +9,7 @@ Este repositorio contiene el entregable final del proyecto de **Servicios Telem�
 
 La arquitectura implementada separa automáticamente las operaciones de escritura (dirigidas al nodo maestro) de las consultas de lectura (distribuidas entre dos réplicas esclavas).
 
-## Arquitectura General
+### Arquitectura General
 
 ![Arquitectura del sistema](./arquitectura.png)
 
@@ -20,6 +20,9 @@ La arquitectura implementada separa automáticamente las operaciones de escritur
 
 ### Presentación
 [![Ver Diapositivas en Canva](https://img.shields.io/badge/Canva-Presentación-blue?logo=canva)](https://www.canva.com/design/DAG4WVc_S0Y/9Yo0Jk42_DiMwT852oycww/view?utm_content=DAG4WVc_S0Y&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h66aaa54fe0)
+
+### Artículo
+[![Reporte del Artículo](https://img.shields.io/badge/📄_Reporte_Artículo-UAO-blue)](https://uao-my.sharepoint.com/:w:/g/personal/etienne_samboni_uao_edu_co/EZYBidVWsS1Dsy8-Rbn_dhUBqVA9h9vGGZoikn5okbsWJw?e=jcLHeX)
 
 
 ## Estructura del Repositorio
