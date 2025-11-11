@@ -177,5 +177,3 @@ sysbench oltp_read_write --mysql-host=mysql-master --mysql-port=3306   --mysql-u
 ```
 
 ---
-
-¡Listo! Con esto tenés un **README** claro para ejecutar, medir y presentar resultados del proyecto.
