@@ -1,5 +1,0 @@
-total
-105
-10	mysql-master	ONLINE	4	9	1114130
-20	mysql-slave1	ONLINE	0	9	262605
-20	mysql-slave2	SHUNNED	0	0	263426
