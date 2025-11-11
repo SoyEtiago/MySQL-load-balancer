@@ -1,0 +1,55 @@
+watch -n 2 "bash ./01_smoke_read_proxy.sh | tail -n +2"
+[prueba smoke read
+bash ./01_smoke_read_proxy.sh
+]
+
+[prueba 2 write
+bash ./02_smoke_write_proxy.sh 
+]
+
+[prueba 3 read only balanceado
+RO_SKIP_TRX=1 TIME=60 THREADS_LIST="4" bash ./03_sysbench_ro_proxy.sh
+]
+
+[Prueba 4
+TIME=60 THREADS_LIST="4" bash ./04_sysbench_rw_proxy.sh 
+]
+
+[ SQL
+docker compose exec mysql-client bash
+
+mysql -h proxysql -P 6033 -ureplica -preplicapass
+
+mysql -h mysql-master -P 3306 -uroot   -prootpass
+mysql -h mysql-slave1 -P 3306 -uroot   -prootpass
+mysql -h mysql-slave2 -P 3306 -uroot   -prootpass
+
+\q
+]
+
+[Prueba 08 SIN BALANCEO
+docker exec -it mysql-master mysql -uroot -prootpass -Nse "SHOW GLOBAL STATUS LIKE 'Com_select';"
+TIME=60 THREADS_LIST="4" bash ./08_sysbench_baseline_master.sh
+docker exec -it mysql-master mysql -uroot -prootpass -Nse "SHOW GLOBAL STATUS LIKE 'Com_select';"
+]
+
+[Prueba point proxy 	Latencia mínima de point_select vía Proxy.
+TIME=10 THREADS_LIST="4" bash ./05_sysbench_point_proxy.sh
+]
+
+[ PRUEBAS 06 y 07, solo cambiar slave1 a slave2
+# Antes
+docker exec -it mysql-master mysql -uroot -prootpass -Nse "SHOW GLOBAL STATUS LIKE 'Com_select';"
+docker exec -it mysql-slave1 mysql -uroot -prootpass -Nse "SHOW GLOBAL STATUS LIKE 'Com_select';"
+
+# Corre la prueba directa al slave1
+TIME=10 bash ./06_sysbench_ro_slave1.sh
+
+# Después
+docker exec -it mysql-master mysql -uroot -prootpass -Nse "SHOW GLOBAL STATUS LIKE 'Com_select';"
+docker exec -it mysql-slave1 mysql -uroot -prootpass -Nse "SHOW GLOBAL STATUS LIKE 'Com_select';"
+]
+
+[Prueba de fallos (tirar servidor)
+RO_SKIP_TRX=1 TIME=60 THREADS_LIST="4" bash ./10_fail_replica_during_ro.sh
+]
