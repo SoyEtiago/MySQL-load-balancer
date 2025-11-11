@@ -1,9 +1,4 @@
-# MySQL Load Balancer — ProxySQL + MySQL (Docker) 🧪⚡
-
-Balanceador de **lecturas** con **ProxySQL** frente a un clúster MySQL **1 master (writes) + 2 slaves (reads)**.
-Incluye **scripts de pruebas** con **Sysbench** y guías para verificar **rendimiento**, **lag de replicación** y **tolerancia a fallos**.
-
----
+# Plan de pruebas
 
 ## 🧱 Topología (docker-compose)
 Servicios:
@@ -20,23 +15,6 @@ Usuarios y credenciales por defecto:
 > - SELECT → hostgroup 20 (slaves)
 > - Otros (INSERT/UPDATE/DELETE) → hostgroup 10 (master)
 
----
-
-## 🚀 Quick Start
-```bash
-# Levanta el entorno
-docker compose up -d
-
-# Entra al contenedor de cliente (tiene sysbench y mysql-client)
-docker exec -it mysql-client bash
-
-# (Dentro del contenedor) permisos y dataset de pruebas
-mysql -h proxysql -P6033 -uroot -prootpass   -e "CREATE DATABASE IF NOT EXISTS sbtest;       GRANT ALL ON sbtest.* TO 'root'@'%';       GRANT SELECT ON sbtest.* TO 'replica'@'%'; FLUSH PRIVILEGES;"
-
-sysbench oltp_read_write   --mysql-host=proxysql --mysql-port=6033   --mysql-user=root --mysql-password=rootpass --mysql-db=sbtest   --tables=16 --table-size=1000000 prepare
-```
-
-> También podés usar el script `pruebas/00_prepare_dataset.sh` (ver sección **Pruebas**).
 
 ---
 
@@ -177,5 +155,3 @@ sysbench oltp_read_write --mysql-host=mysql-master --mysql-port=3306   --mysql-u
 ```
 
 ---
-
-¡Listo! Con esto tenés un **README** claro para ejecutar, medir y presentar resultados del proyecto.
