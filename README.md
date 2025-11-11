@@ -74,6 +74,12 @@ SELECT hostgroup_id, srv_host, srv_port, status FROM runtime_mysql_servers;
 SELECT rule_id, active, match_pattern, destination_hostgroup FROM mysql_query_rules;
 ```
 
+## Pruebas y Validación
+
+El comportamiento del balanceador fue evaluado mediante pruebas de lectura, escritura y carga mixta con Sysbench, verificando la correcta distribución de consultas y la tolerancia ante fallos de réplicas.
+
+📘 [Consultar el Plan de Pruebas](https://github.com/SoyEtiago/MySQL-load-balancer/blob/main/pruebas/Plan%20de%20pruebas.md)
+
 ## Autores
 - Etienne Santiago Samboni Piamba
 - David Alejandro Penagos Valencia
