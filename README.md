@@ -13,7 +13,7 @@ La arquitectura implementada separa automáticamente las operaciones de escritur
 
 ![Arquitectura del sistema](./arquitectura.png)
 
-### Demo en video (2 minutos)
+### Demo en video
 [![Demo en video](https://img.youtube.com/vi/5UUoAVL1c8Y/0.jpg)](https://www.youtube.com/watch?v=5UUoAVL1c8Y])
 
 *Despliegue, pruebas de rendimiento en vivo.*
